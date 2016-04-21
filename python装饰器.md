@@ -6,8 +6,8 @@ python装饰器
 假设我们现在有一个求斐波那契数列的递归实现，代码如下。
 ```python
 def f(n):
-    assert n &gt; 0
-    if n &gt;= 3:
+    assert n > 0
+    if n >= 3:
         return f(n-1) + f(n-2)
     else:
         return 1
@@ -30,8 +30,8 @@ def cache(func):
 # 使用装饰器，给函数增加缓存机制
 @cache     
 def f(n):
-    assert n &gt; 0
-    if n &gt;= 3:
+    assert n > 0
+    if n >= 3:
         return f(n-1) + f(n-2)
     else:
         return 1
@@ -41,13 +41,13 @@ def f(n):
 ```python
 def log(func):
     def wrapper(*args, **kw):
-        print &#39;call %s():&#39; % func.__name__
+        print "call %s():" % func.__name__
         return func(*args, **kw)
     return wrapper
     
 @log
 def now():
-    print &#39;2013-12-25&#39;
+    print "2013-12-25"
 
 #等价于
 now = log(now)
@@ -58,23 +58,23 @@ def log(text):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kw):
-            print &#39;%s %s():&#39; % (text, func.__name__)
+            print "%s %s():" % (text, func.__name__)
             return func(*args, **kw)
         return wrapper
     return decorator
     
-@log(&#39;execute&#39;)
+@log("execute")
 def now():
-    print &#39;2013-12-25&#39;
+    print "2013-12-25"
 
 #等价于
-now = log(&#39;execute&#39;)(now)
+now = log("execute")(now)
 ```
 ## 处理__name__属性
 无参数now方法加了@log后,__name__属性会被修改，结果如下：
 ```python
-&gt;&gt;&gt; print now.__name__
-&#39;wrapper&#39;
+>>> print now.__name__
+"wrapper"
 ```
 这会导致有些依赖函数签名的代码执行就会出错，所以调用python内置的functools.wraps，自动执行wrapper.__name__ = func.__name__，使__name__属性恢复‘now’。
 ```python
@@ -83,7 +83,7 @@ import functools
 def log(func):
     @functools.wraps(func)
     def wrapper(*args, **kw):
-        print &#39;call %s():&#39; % func.__name__
+        print "call %s():" % func.__name__
         return func(*args, **kw)
     return wrapper
 ```
